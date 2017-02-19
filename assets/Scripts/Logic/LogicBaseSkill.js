@@ -1,9 +1,4 @@
-require('./Framework/init.js')
-
-
 cc.Class({
-    extends: global.Framework.Game,
-
     properties: {
         // foo: {
         //    default: null,      // The default value will be used only when the component attaching
@@ -19,7 +14,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this._super();
+        
     },
 
     // called every frame, uncomment this function to activate update callback

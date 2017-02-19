@@ -1,8 +1,5 @@
-require('./Framework/init.js')
-
-
 cc.Class({
-    extends: global.Framework.Game,
+    extends: cc.Component,
 
     properties: {
         // foo: {
@@ -15,11 +12,35 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        icon: cc.Sprite,
+        xueTiao:cc.ProgressBar,
+        xueLiang:cc.Label,
+        lanLiang:cc.Label,
+        lanTiao:cc.ProgressBar,
+        roleNmae:cc.Label,
+
     },
+
+    xiaoming:cc.Class({
+        properties:{
+            name:"xiaoming",
+            age:10,
+            class:2,
+        }
+    }),
 
     // use this for initialization
     onLoad: function () {
-        this._super();
+        var one = new this.xiaoming();
+        var xiaomingStr = JSON.stringify(one);
+        cc.log(xiaomingStr);
+
+        var xiaomingObj = JSON.parse(xiaomingStr);
+
+        cc.log(xiaomingObj.name);
+        
+
+
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -27,3 +48,5 @@ cc.Class({
 
     // },
 });
+
+

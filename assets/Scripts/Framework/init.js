@@ -2,12 +2,11 @@ global.Framework = {}
 require("./Core/Base.js")
 require("./Core/Md5.js")
 require("./Core/JsExtention.js")
-require("./Page/Page.js")
-require("./Page/PageManager.js")
+require("./Page/PageManager.js");
 
 global.Framework.Game = cc.Class({
     extends: cc.Component,
-
+    
     properties: {
         // foo: {
         //    default: null,      // The default value will be used only when the component attaching
@@ -19,11 +18,19 @@ global.Framework.Game = cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+
     },
 
     // use this for initialization
     onLoad: function () {
+        cc.log('init.js onload');
 
+        var LogicManager = require('../Logic/LogicManager');
+        this.addComponent(LogicManager);
+
+        var HeroAttriFactory = require('../Logic/HeroAttriFactory');
+        global.GHeroAttriFactory = new HeroAttriFactory();
+        global.GHeroAttriFactory.init();
     },
 
     // called every frame, uncomment this function to activate update callback

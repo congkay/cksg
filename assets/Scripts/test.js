@@ -1,8 +1,5 @@
-require('./Framework/init.js')
-
-
 cc.Class({
-    extends: global.Framework.Game,
+    extends: cc.Component,
 
     properties: {
         // foo: {
@@ -19,9 +16,12 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this._super();
+
     },
 
+    start:function(){
+      cc.log("helloooo"); 
+    },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 

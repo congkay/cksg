@@ -1,9 +1,10 @@
-global.Framework.Page = cc.Class({
+cc.Class({
     extends: cc.Component,
 
     properties: {
         // foo: {
-        //    default: null,
+        //    default: null,      // The default value will be used only when the component attaching
+        //                           to a node for the first time
         //    url: cc.Texture2D,  // optional, default is typeof default
         //    serializable: true, // optional, default is true
         //    visible: true,      // optional, default is true
@@ -18,6 +19,10 @@ global.Framework.Page = cc.Class({
 
     },
 
+
+    btCB_Login:function(){
+        
+    }
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
