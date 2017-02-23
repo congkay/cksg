@@ -15,6 +15,7 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        Hero:null,
     },
 
     // use this for initialization

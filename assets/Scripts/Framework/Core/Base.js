@@ -24,6 +24,9 @@ core.isString = function (param)
 {
     return typeof (param) === "string"
 }
+core.isUndefined = function(obj){
+    return typeof(obj)=="undefined";
+}
 core.random = function (min, max)
 {
     switch (arguments.length)

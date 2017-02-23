@@ -18,7 +18,8 @@ cc.Class({
         lanLiang:cc.Label,
         lanTiao:cc.ProgressBar,
         roleNmae:cc.Label,
-
+        // pos:cc.Vec2,
+        // pos1:cc.p
     },
 
     xiaoming:cc.Class({
