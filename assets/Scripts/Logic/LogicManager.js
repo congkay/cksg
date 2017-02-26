@@ -1,6 +1,8 @@
 cc.Class({
     extends: cc.Component,
-
+    //FIGHT 一整场战斗
+    //Round 战斗中的一个回合
+    //FAction 战斗中的一个动作
     properties: {
         // foo: {
         //    default: null,      // The default value will be used only when the component attaching
@@ -23,14 +25,34 @@ cc.Class({
 
         _isSkipCurFight:false,
 
+        _controlView:null,
+
+        _isInited:false,//是否已经初始化
     },
 
+    loadControlView:function(view){
+        this._controlView = view;
+
+        this.loadControlNodes();
+
+    },
+
+    loadControlNodes:function(){
+        if(this._isInited&&this._controlView!=null){
+            for(var i=0;i<3;i++){
+            this._playerList[i].setNode(this._controlView._playerArray[i]);
+            this._enemeyList[i].setNode(this._controlView._enemyArray[i]);
+            }
+        }
+        
+    },
     // use this for initialization
     onLoad: function () {
+        global.GLogicManager = this;
         this._playerList = new Array();
         this._enemeyList = new Array();
         this._allHeroList = new Array();
-        global.GLogicManager = this;
+        
         require("LogicHero");
         for(var i=0;i<3;i++){
             var player = new global.LogicHero();
@@ -39,10 +61,14 @@ cc.Class({
             this._playerList.push(player);
             this._enemeyList.push(enemy);
         }
+
+        this._isInited = true;
+        this.loadControlNodes();
         var cur = this;
         this.scheduleOnce(function(){
             cc.log("begin game");
             cur.fightReset();
+            this.beginNewFight();
         },2);
     },
 
@@ -63,15 +89,15 @@ cc.Class({
             logicHero.clearData();
         });
 
-        attri.speed = 100+cc.rand()%100;
+        attri.speed = 100;
         this._playerList[0].init(global.core.clone(attri))._teamType = 0;
         this._playerList[0].setName("Player");
 
-        attri.speed = 50+cc.rand()%100;
+        attri.speed = 50;
         this._enemeyList[0].init(global.core.clone(attri))._teamType = 1;
         this._enemeyList[0].setName("enemy");
 
-        this.beginNewFight();
+        
 
     },
     // called every frame, uncomment this function to activate update callback
@@ -83,6 +109,14 @@ cc.Class({
         this._isFightEnd = false;
         this._allHeroList.splice(0,core.length(this._allHeroList));
         this.roundStart();
+    },
+
+    //一场战斗完成
+    fightEnd:function(){
+        this._actionHero = null;
+        this._ActionIndex = 0;
+        this._isSkipCurFight = false;
+        this._isFightEnd = true;
     },
 
     roundStart:function(){
@@ -104,7 +138,7 @@ cc.Class({
         });
 
         this._allHeroList.sort(function(a,b){
-            return a._runningAttribute.speed - b._runningAttribute.speed;
+            return b._runningAttribute.speed - a._runningAttribute.speed;
         });
 
         this.beginLogicDelay(1);
@@ -114,12 +148,12 @@ cc.Class({
     beginLogicDelay:function(delayTime){
         var cur = this;
         this.scheduleOnce(function(){
-            cur.doGameLogic();
+            cur.doFActionLogic();
         },delayTime);
     },
 
     //一个战斗动作开始
-    doGameLogic:function(){
+    doFActionLogic:function(){
         if(this._isFightEnd){
             return;
         }
@@ -131,7 +165,7 @@ cc.Class({
         }else{
             if(this._isSkipCurFight){
                 this._isSkipCurFight = false;
-                this.delayBeginNextFight(1);
+                this.delayBeginNextFAction(0.5);
             }else{
                 this._actionHero.hurtCount(this.getRivalList(this._actionHero));
             }
@@ -139,20 +173,20 @@ cc.Class({
     },
 
 
-    delayBeginNextFight:function(delayTime){
+    delayBeginNextFAction:function(delayTime){
         var cur = this;
         this.scheduleOnce(function(){
-            cur.cbOneFightActionEnd();
+            cur.cbOneFActionEnd();
         },delayTime);
     },
 
     //一个攻击动作结束
-    cbOneFightActionEnd:function(){
-        this.checkOrBeginFight();
+    cbOneFActionEnd:function(){
+        this.checkOrBeginFAction();
     },
     
     //检查战斗是否结束，不结束就继续战斗
-    checkOrBeginFight:function(){
+    checkOrBeginFAction:function(){
         //1胜利，-1失败，0未结束
         var result = -1;
         for (var i = 0, length = this._playerList.length; i < length; ++i)
@@ -175,13 +209,13 @@ cc.Class({
         }
 
         //本次战斗结束
-        if(result==-1){
+        if(result===-1){
             //TODO
             cc.log("战斗失败");
-        }else if(result==1){
+        }else if(result===1){
             cc.log("战斗胜利");
         }else{
-            this.beginLogicDelay(1);
+            this.beginLogicDelay(0.1);
         }
 
     },
@@ -191,6 +225,14 @@ cc.Class({
             return this._enemeyList;
         }else{
             return this._playerList;
+        }
+    },
+
+    getHero:function(troopIndex,teamType){
+        if(teamType==0){
+            return this._playerList[troopIndex];
+        }else{
+            return this._enemeyList[troopIndex];
         }
     },
     

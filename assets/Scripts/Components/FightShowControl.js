@@ -12,42 +12,22 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
-        icon: cc.Sprite,
-        xueTiao:cc.ProgressBar,
-        xueLiang:cc.Label,
-        lanLiang:cc.Label,
-        lanTiao:cc.ProgressBar,
-        roleNmae:cc.Label,
-        // pos:cc.Vec2,
-        // pos1:cc.p
     },
-
-    xiaoming:cc.Class({
-        properties:{
-            name:"xiaoming",
-            age:10,
-            class:2,
-        }
-    }),
 
     // use this for initialization
     onLoad: function () {
-        var one = new this.xiaoming();
-        var xiaomingStr = JSON.stringify(one);
-        cc.log(xiaomingStr);
+        this._playerArray = new Array();
+        this._enemyArray = new Array();
+        for(var i=0;i<3;i++){
+            this._playerArray[i] = this.node.getChildByName("Player"+(i+1));
+            this._enemyArray[i] = this.node.getChildByName("Enemy"+(i+1));
+        }
 
-        var xiaomingObj = JSON.parse(xiaomingStr);
-
-        cc.log(xiaomingObj.name);
-        
-
-
+        global.GLogicManager.loadControlView(this);
     },
-
+    
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
 });
-
-

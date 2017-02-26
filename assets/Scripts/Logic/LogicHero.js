@@ -8,8 +8,7 @@ global.LogicHero = cc.Class({
         return this._name;
     },
     ctor:function(){
-        cc.log("not a constructor");
-        this._controlPlayer = null;
+        this._controlComond = null;
         this._teamType = 0;
         this._isActive=false;
         this._isAlive=false;
@@ -17,16 +16,13 @@ global.LogicHero = cc.Class({
         this._baseAttribute = new global.DHeroAttri();
         this._runningAttribute = new global.DHeroAttri();
     },
-    sayHello:function(){
-      cc.log("Hello i am LogicHero");  
-    },
+
 
     getSpeed:function(){
         return this._runningAttribute.speed;
     },
 
     clearData:function(){
-        this._controlPlayer = null;
         this._baseAttribute = new global.DHeroAttri();
         this._runningAttribute = new global.DHeroAttri();
         this._teamType = 0;
@@ -44,8 +40,9 @@ global.LogicHero = cc.Class({
         return this;
     },
 
-    setPlayer:function(playerNode){
-        this._controlPlayer = playerNode;
+    setNode:function(playerNode){
+        this._controlComond = playerNode.getComponent("FightHero");
+        this._controlComond.bindController(this);
     },
 
     //伤害统计，deflist攻击的敌人列表
@@ -71,12 +68,12 @@ global.LogicHero = cc.Class({
         }
 
         this.jianxue(hurtNum);
+        return hurtNum;
     },
 
     jianxue:function(num){
-
-        cc.log(this.getName()+"---->hurted :"+num+",leftblood="+this._baseAttribute.hp);
         this._baseAttribute.hp-=num;
+        cc.log(this.getName()+"---->hurted :"+num+",leftblood="+this._baseAttribute.hp);
         if(this._baseAttribute.hp<=0){
             this._baseAttribute.hp = 0;
             this._isAlive = false;
@@ -86,13 +83,15 @@ global.LogicHero = cc.Class({
     doAttact:function(){
         // cc.log('doAttact');
         // this.scheduleOnce(function(){
-            this.attactActionEndCB();
+            // this.attactActionEndCB();
         // },1.5);
+        this._controlComond.attactAction();
     },
 
     //攻击完成
     attactEnd:function(){
-        global.GLogicManager.cbOneFightActionEnd();
+        cc.log("attactEnd");
+        global.GLogicManager.cbOneFActionEnd();
     },
 
     //攻击动作完成之后回调
@@ -102,11 +101,13 @@ global.LogicHero = cc.Class({
 
     //执行防御动作
     doDefend:function(skill){
-
+        this._controlComond.defAction();
     },
     //执行防御动作完成
-    defendEnd:function(){
+    defendActionEnd:function(){
 
     },
-    
+    fightEnd:function(){
+        this._isActive = false;
+    },
 });

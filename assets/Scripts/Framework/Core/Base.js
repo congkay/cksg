@@ -12,6 +12,7 @@ core.isNumber = function (param)
 {
     return !isNaN(param)
 }
+
 core.isNaN = function (param)
 {
     return isNaN(param)
