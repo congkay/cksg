@@ -74,8 +74,8 @@ cc.Class({
 
     fightReset:function(){
         var attri = global.GHeroAttriFactory.createNullHeroAttri();
-        attri.hp = 100;
-        attri.mp = 100;
+        attri.hp =attri.maxHp= 100;
+        attri.mp =attri.maxMp= 100;
         attri.att = 4;
         attri.def = 1;
         
@@ -96,10 +96,8 @@ cc.Class({
         attri.speed = 50;
         this._enemeyList[0].init(global.core.clone(attri))._teamType = 1;
         this._enemeyList[0].setName("enemy");
-
-        
-
     },
+    
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
@@ -206,6 +204,10 @@ cc.Class({
                     break;
                 }
             }
+        }
+
+        if(result!=0){
+            this.unschedule();
         }
 
         //本次战斗结束

@@ -12,6 +12,10 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        // nodeList:{
+        //     default:[],
+        //     type:cc.Node
+        // }
     },
 
     // use this for initialization

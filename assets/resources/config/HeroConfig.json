@@ -1,0 +1,5 @@
+[
+["index","HeroID","Name","iconPath","hp","hpGrow","mp","mpGrow","wuli","wuliGrow","zhili","zhiliGrow","tongshuai","tongshuaigrow","sudu","suduGrow","fayu","fangyuGrow","fafang","fafangGrow","tianfu"],
+["1","1","张飞"," ","100","1","50","1","10","1","1","0.1","1","0.2","1","1","1","1","1","1","0"],
+["2","2","赵云"," ","100","1","50","1","10","1","1","0.1","1","0.2","1","1","1","1","1","1","0"]
+]

@@ -41,9 +41,11 @@ cc.Class({
         // var xiaomingObj = JSON.parse(xiaomingStr);
 
         // cc.log(xiaomingObj.name);
+
+        global.DataConfig.loadHeroConfig();
         this._initPos = this.node.position;
-        this.attActionTime = 0.2;
-        this.defActionTime = 0.2;
+        this.attActionTime = 0.1;
+        this.defActionTime = 0.1;
         this.attMoveOff = 20;
         this.defMoveOff = 20;
     },
@@ -51,6 +53,7 @@ cc.Class({
     //绑定控制器 
     bindController:function(control){
         this._holder = control;
+        
     },
 
 
@@ -75,9 +78,9 @@ cc.Class({
     defAction:function(){
         this.node.position = this._initPos;
         this.node.stopAllActions();
-        var movePos = cc.p(this.defMoveOff,0);
+        var movePos = cc.p(-this.defMoveOff,0);
         if(this._holder._teamType==1){
-            movePos = cc.p(-this.defMoveOff,0);
+            movePos = cc.p(this.defMoveOff,0);
         }
         var moveTo = cc.moveBy(this.defActionTime,movePos);
         var moveBack = moveTo.reverse();
@@ -101,8 +104,11 @@ cc.Class({
         this._holder.defendActionEnd();
     },
 
-    freshHeroAtt:function(attr){
-        this.xueLiang.string = "haha/haha";
+
+    freshHeroAttr:function(attr){
+        this.xueLiang.string = attr.hp+"/"+attr.maxHp;
+        this.lanLiang.string = attr.mp+"/"+attr.maxMp;
+
     }
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

@@ -10,15 +10,33 @@ cc.Class({
         //    readonly: false,    // optional, default is false
         // },
         // ...
+        _logicHolder:null,//拥有者
+        _targetNum:1,//目标数
+        _targetSelf:false,
+        _id:0,
+
     },
 
-    // use this for initialization
-    onLoad: function () {
-        
+    ctor:function(){
+
     },
+
+    init:function(id,level){
+
+    },
+
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
 });
+
+
+global.GSkillFactory = {
+    createSkill:function(id,level){
+        
+    },
+
+
+};

@@ -23,10 +23,12 @@ global.LogicHero = cc.Class({
     },
 
     clearData:function(){
+        cc.log("clearData");
         this._baseAttribute = new global.DHeroAttri();
         this._runningAttribute = new global.DHeroAttri();
         this._teamType = 0;
         this._isActive = false;
+        this._controlComond.node.active   = false;
     },
 
     init:function(attri){
@@ -36,7 +38,7 @@ global.LogicHero = cc.Class({
         this._runningAttribute = attri;
         this._isActive = true;
         this._isAlive = true;
-        
+        this._controlComond.node.active   = true;
         return this;
     },
 
@@ -78,6 +80,8 @@ global.LogicHero = cc.Class({
             this._baseAttribute.hp = 0;
             this._isAlive = false;
         }
+        this._controlComond.freshHeroAttr(this._baseAttribute);
+        this._controlComond.defAction();
     },
     //执行攻击
     doAttact:function(){
