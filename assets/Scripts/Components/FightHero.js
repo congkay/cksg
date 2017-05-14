@@ -42,7 +42,8 @@ cc.Class({
 
         // cc.log(xiaomingObj.name);
 
-        global.DataConfig.loadHeroConfig();
+        
+        // global.DataConfig.getHeroAttrByID(1);
         this._initPos = this.node.position;
         this.attActionTime = 0.1;
         this.defActionTime = 0.1;
@@ -108,7 +109,8 @@ cc.Class({
     freshHeroAttr:function(attr){
         this.xueLiang.string = attr.hp+"/"+attr.maxHp;
         this.lanLiang.string = attr.mp+"/"+attr.maxMp;
-
+        this.xueTiao.progress = 1.0*attr.hp/attr.maxHp;
+        this.lanTiao.progress = 1.0*attr.mp/attr.maxMp;
     }
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

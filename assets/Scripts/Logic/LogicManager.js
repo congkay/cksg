@@ -104,6 +104,7 @@ cc.Class({
     // },
 
     beginNewFight:function(){
+        global.DataConfig.getHeroAttrByID(2);
         this._isFightEnd = false;
         this._allHeroList.splice(0,core.length(this._allHeroList));
         this.roundStart();
@@ -126,18 +127,22 @@ cc.Class({
         global.core.foreach(this._playerList,function(index,logicHero){
             if(logicHero._isAlive){
                 cur._allHeroList.push(logicHero);
+                logicHero.freshHeroAttr();
             }
                 
         });
         global.core.foreach(this._enemeyList,function(index,logicHero){
             if(logicHero._isAlive){
                 cur._allHeroList.push(logicHero);
+                logicHero.freshHeroAttr();
             }
         });
 
         this._allHeroList.sort(function(a,b){
             return b._runningAttribute.speed - a._runningAttribute.speed;
         });
+
+
 
         this.beginLogicDelay(1);
     },

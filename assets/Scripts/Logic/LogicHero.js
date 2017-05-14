@@ -83,6 +83,10 @@ global.LogicHero = cc.Class({
         this._controlComond.freshHeroAttr(this._baseAttribute);
         this._controlComond.defAction();
     },
+
+    freshHeroAttr:function(){
+        this._controlComond.freshHeroAttr(this._baseAttribute);
+    },
     //执行攻击
     doAttact:function(){
         // cc.log('doAttact');

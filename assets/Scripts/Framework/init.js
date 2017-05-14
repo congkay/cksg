@@ -27,7 +27,7 @@ global.Framework.Game = cc.Class({
         cc.log('init.js onload');
 
         this.testFunc();
-
+        global.DataConfig.loadHeroConfig();
         var LogicManager = require('../Logic/LogicManager');
         this.addComponent(LogicManager);
     },

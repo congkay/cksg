@@ -1,0 +1,24 @@
+{
+  "appKey": "",
+  "appSecret": "",
+  "excludeScenes": [],
+  "includeAnySDK": false,
+  "includeSdk": [
+    "anysdk"
+  ],
+  "inlineSpriteFrames": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "orientation": {
+    "landscapeLeft": false,
+    "landscapeRight": false,
+    "portrait": true,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.cksg",
+  "privateKey": "",
+  "renderMode": "0",
+  "startScene": "0c77d8fa-0635-4024-bd67-13ab8164bc2e",
+  "title": "cksg",
+  "webOrientation": "auto"
+}
